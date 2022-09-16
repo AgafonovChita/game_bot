@@ -1,0 +1,1 @@
+from .game_api import check_answer, send_point
