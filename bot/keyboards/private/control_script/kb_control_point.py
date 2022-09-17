@@ -19,7 +19,7 @@ async def keyboard_control_point(repo: SQLAlchemyRepo):
             InlineKeyboardButton(text="Просмотреть задания", callback_data="view_points"))
         #  InlineKeyboardButton(text="Удалить задание", callback_data="delete_menu"))
     keyboard_admin.add(
-        InlineKeyboardButton(text="Назад", callback_data="control_script"))
+        InlineKeyboardButton(text="\U000021AA Назад", callback_data="control_script"))
     keyboard_admin.adjust(2, 2, repeat=True)
     return keyboard_admin.as_markup()
 
@@ -28,7 +28,7 @@ async def keyboard_create_point():
     keyboard_admin = InlineKeyboardBuilder()
     keyboard_admin.add(
         InlineKeyboardButton(text="Добавить задание", callback_data="add_point"),
-        InlineKeyboardButton(text="Назад", callback_data="control_script"))
+        InlineKeyboardButton(text="\U000021AA Назад", callback_data="control_script"))
     keyboard_admin.adjust(2, 2, repeat=True)
     return keyboard_admin.as_markup()
 
@@ -46,7 +46,7 @@ async def delete_menu_key():
     keyboard_admin = InlineKeyboardBuilder()
     keyboard_admin.add(
         # InlineKeyboardButton(text="Удалить задание", callback_data="delete_menu")
-        InlineKeyboardButton(text="В меню", callback_data="start_menu")
+        InlineKeyboardButton(text="\U000021AA В меню", callback_data="start_menu")
     )
     keyboard_admin.adjust(2, repeat=True)
     return keyboard_admin.as_markup()

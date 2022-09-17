@@ -14,7 +14,7 @@ async def keyboard_control_script(repo: SQLAlchemyRepo):
         keyboard_admin.add(
             InlineKeyboardButton(text="Создать сценарий", callback_data="create_script"))
     keyboard_admin.add(
-        InlineKeyboardButton(text="Главное меню", callback_data="start_menu"))
+        InlineKeyboardButton(text="\U000021AA Главное меню", callback_data="start_menu"))
     keyboard_admin.adjust(2, 2, repeat=True)
     return keyboard_admin.as_markup()
 

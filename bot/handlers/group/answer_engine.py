@@ -18,8 +18,8 @@ answer_router.message.bind_filter(GameState)
 async def message_for_bot(message: types.Message, repo: SQLAlchemyRepo, bot: Bot):
     """Сообщения обращённые к боту - т.е. варианты ответов"""
     answer = await parse_answer(message.text)
-    await engine.check_answer(answer_text=answer,
-                              team_idx=message.chat.id,
-                              repo=repo,
-                              bot=bot)
-
+    await engine.check_current_answer(answer_text=answer,
+                                      team_idx=message.chat.id,
+                                      bot=bot,
+                                      repo=repo,
+                                      message=message)

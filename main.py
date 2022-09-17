@@ -38,7 +38,7 @@ async def main():
     bot = Bot(Config.bot_token, parse_mode="HTML")
     storage = MemoryStorage()
 
-    engine = create_async_engine(f"{Config.db_url}", future=True, echo=True)
+    engine = create_async_engine(f"{Config.db_url}", future=True, echo=False)
 
     async with engine.begin() as conn:
         #await conn.run_sync(Base.metadata.drop_all)
