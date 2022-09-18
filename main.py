@@ -28,8 +28,7 @@ from bot.config import Config
 logger = logging.getLogger(__name__)
 
 
-async def get_scheduler(sqlite_name: str):
-    #job_stores = {'default': SQLAlchemyJobStore(url=f'sqlite:///{sqlite_name}')}
+async def get_scheduler():
     scheduler = AsyncIOScheduler(timezone="Europe/Berlin")
     return scheduler
 
@@ -45,7 +44,7 @@ async def main():
     bot = Bot(Config.bot_token, parse_mode="HTML")
     storage = MemoryStorage()
 
-    scheduler = await get_scheduler(sqlite_name=Config.db_name)
+    scheduler = await get_scheduler()
 
     engine = create_async_engine(f"{Config.db_url}", future=True, echo=False)
     async with engine.begin() as conn:

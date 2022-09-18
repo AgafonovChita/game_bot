@@ -11,6 +11,7 @@ from .control_game_panel import control_game
 cancel_game_router = Router()
 cancel_game_router.message.bind_filter(ChatType)
 
+
 @cancel_game_router.callback_query(F.data == "check_cancel_game")
 async def stop_game(call: types.CallbackQuery, repo: SQLAlchemyRepo):
     await call.answer()

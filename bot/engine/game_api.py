@@ -20,7 +20,11 @@ async def start_game(repo: SQLAlchemyRepo, bot: Bot, scheduler: AsyncIOScheduler
 
 
 async def stop_game(repo: SQLAlchemyRepo, bot: Bot, scheduler: AsyncIOScheduler):
-    scheduler.shutdown()
+    try:
+        scheduler.shutdown()
+    except Exception:
+        pass
+
     teams_list = await repo.get_repo(TeamRepo).get_teams_list()
     if teams_list:
         for team in teams_list:

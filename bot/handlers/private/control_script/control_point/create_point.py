@@ -15,6 +15,8 @@ from bot.services.repo import PointRepo
 from bot.keyboards.private.control_script.kb_control_point import TypePoint
 from bot.models.states import CreatePoint
 
+from bot.utils import validator
+
 create_point_router = Router()
 create_point_router.message.bind_filter(ChatType)
 
@@ -115,12 +117,15 @@ async def description_is_not_img(call: types.CallbackQuery, bot: Bot,  state: FS
 
 @create_point_router.message(state=CreatePoint.point_get_timeout)
 async def get_timeout(message: types.Message, state: FSMContext, bot: Bot, repo: SQLAlchemyRepo):
-    await state.update_data(timeout=message.text)
-    data = await state.get_data()
-    await repo.get_repo(PointRepo).add_point(point=data)
+    if await validator.timeout_validator(timeout=message.text):
+        await state.update_data(timeout=message.text)
+        data = await state.get_data()
+        await repo.get_repo(PointRepo).add_point(point=data)
 
-    await message.answer(await tx_create_point.point_is_added(repo=repo),
-                         reply_markup=await kb_control_point.keyboard_control_point(repo=repo))
-    await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id - 1)
-    await state.clear()
+        await message.answer(await tx_create_point.point_is_added(repo=repo),
+                             reply_markup=await kb_control_point.keyboard_control_point(repo=repo))
+        await bot.delete_message(chat_id=message.chat.id, message_id=message.message_id - 1)
+        await state.clear()
+        return
+    await message.reply(text="Введите целое число")
 

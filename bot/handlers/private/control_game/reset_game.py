@@ -24,4 +24,4 @@ async def stop_game(call: types.CallbackQuery, bot: Bot, repo: SQLAlchemyRepo, s
     await repo.get_repo(ProtocolRepo).reset_protocol()
     await repo.get_repo(StateRepo).reset_state()
     await drop_files()
-    await control_game(call=call, repo=repo, state=state)
+    await control_game(call=call, repo=repo)

@@ -13,7 +13,7 @@ control_game_panel_router.message.bind_filter(ChatType)
 
 
 @control_game_panel_router.callback_query(F.data == "control_game")
-async def control_game(call: types.CallbackQuery, repo: SQLAlchemyRepo, state: FSMContext):
+async def control_game(call: types.CallbackQuery, repo: SQLAlchemyRepo):
     await call.answer()
     await call.message.delete()
     await call.message.answer(text=await tx_control_game.control_game_text(repo=repo),

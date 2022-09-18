@@ -43,7 +43,7 @@ async def export_current_protocol(call: types.CallbackQuery, bot: Bot, repo: SQL
     await call.answer()
     name_file_protocol = await export_protocol.export_current_protocol(repo=repo)
     await call.message.answer_document(types.FSInputFile(name_file_protocol))
-    await control_game(call=call, repo=repo, state=state)
+    await control_game(call=call, repo=repo)
 
 
 @protocol_game_router.callback_query(F.data == "export_final_protocol")
@@ -51,5 +51,5 @@ async def export_final_protocol(call: types.CallbackQuery, bot: Bot, repo: SQLAl
     await call.answer()
     name_file_protocol = await export_protocol.export_final_protocol(repo=repo)
     await call.message.answer_document(types.FSInputFile(name_file_protocol))
-    await control_game(call=call, repo=repo, state=state)
+    await control_game(call=call, repo=repo)
 

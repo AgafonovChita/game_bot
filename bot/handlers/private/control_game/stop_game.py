@@ -30,13 +30,13 @@ async def stop_game(call: types.CallbackQuery, repo: SQLAlchemyRepo,
     idx = await repo.get_repo(ScriptRepo).get_script_id()
     await repo.get_repo(GameRepo).stop_game(game_id=idx)
     await game_api.stop_game(repo=repo, bot=bot, scheduler=scheduler)
-    await control_game(call=call, repo=repo, state=state)
+    await control_game(call=call, repo=repo)
 
 
 @stop_game_router.callback_query(kb_control_game.CompleteCallback.filter(F.check.is_(False)))
 async def not_stop_game(call: types.CallbackQuery, repo: SQLAlchemyRepo, state: FSMContext):
     await call.answer()
-    await control_game(call=call, repo=repo, state=state)
+    await control_game(call=call, repo=repo)
 
 
 
