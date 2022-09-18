@@ -43,3 +43,8 @@ class PointRepo(BaseSQLAlchemyRepo):
         result = await self._session.delete(request)
         await self._session.commit()
         return result
+
+    async def get_help_timeout(self, point_idx: int):
+        sql = select(Endpoint.point_help_timeout).where(Endpoint.point_id == point_idx)
+        result = await self._session.execute(sql)
+        return result.scalar()

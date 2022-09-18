@@ -1,7 +1,6 @@
 from aiogram import types, Bot
 from aiogram.dispatcher.router import Router
 from aiogram.fsm.context import FSMContext
-from bot.texts.game_engine.tx_game_engine import start_message
 from bot.filters.tag_bot import TagBot
 from bot.filters.chat_type import ChatType
 

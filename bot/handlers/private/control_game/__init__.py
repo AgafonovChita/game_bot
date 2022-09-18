@@ -9,6 +9,8 @@ from .stop_game import stop_game_router
 from .reset_game import reset_game_router
 from .teams_game import teams_game_router
 from .protocol_game import protocol_game_router
+from .cancel_game import cancel_game_router
+from .description_game import description_game_router
 
 control_game_router = Router()
 control_game_router.message.bind_filter(ChatType)
@@ -20,5 +22,6 @@ control_game_router.include_router(stop_game_router)
 control_game_router.include_router(reset_game_router)
 control_game_router.include_router(teams_game_router)
 control_game_router.include_router(protocol_game_router)
-
+control_game_router.include_router(cancel_game_router)
+control_game_router.include_router(description_game_router)
 

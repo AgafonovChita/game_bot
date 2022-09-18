@@ -2,6 +2,7 @@ from sqlalchemy import select, update
 
 from bot.db.models import Script, CurrentState
 from bot.services.repo import BaseSQLAlchemyRepo
+from apscheduler.job import Job
 
 
 class StateRepo(BaseSQLAlchemyRepo):
@@ -44,3 +45,16 @@ class StateRepo(BaseSQLAlchemyRepo):
     async def reset_state(self):
         await self._session.execute('DELETE FROM current_state')
         await self._session.commit()
+
+    async def update_job(self, team_idx: int, job_instance: Job):
+        await self._session.execute(update(CurrentState).
+                                    where(CurrentState.team_id == team_idx).
+                                    values(job=job_instance))
+        await self._session.commit()
+
+    async def get_job(self, team_idx: int):
+        job = await self._session.execute(select(CurrentState.job).
+                                          where(CurrentState.team_id == team_idx))
+        await self._session.commit()
+        return job
+

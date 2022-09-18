@@ -29,12 +29,13 @@ async def get_current_protocol(call: types.CallbackQuery, bot: Bot, repo: SQLAlc
     await call.message.answer(text=await tx_control_game.get_current_protocol_text(repo=repo),
                               reply_markup=await kb_control_game.export_protocol_menu(type_protocol="current"))
 
+
 @protocol_game_router.callback_query(F.data == "final_protocol")
-await def get_final_protocol(call: types.CallbackQuery, bot: Bot, repo: SQLAlchemyRepo):
+async def get_final_protocol(call: types.CallbackQuery, bot: Bot, repo: SQLAlchemyRepo):
     await call.answer()
     await call.message.delete()
     await call.message.answer(text=await tx_control_game.get_final_protocol_text(repo=repo),
-                              reply_markup=await kb_control_game.export_protocol_menu(type_protocol="final")
+                              reply_markup=await kb_control_game.export_protocol_menu(type_protocol="final"))
 
 
 @protocol_game_router.callback_query(F.data == "export_current_protocol")

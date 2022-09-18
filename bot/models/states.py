@@ -28,3 +28,8 @@ class DeletePoint(StatesGroup):
 
 class DeleteScript(StatesGroup):
     delete_script = State()
+
+
+class EditDescription(StatesGroup):
+    get_description_start = State()
+    get_description_final = State()

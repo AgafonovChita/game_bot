@@ -17,6 +17,9 @@ class GameRepo(BaseSQLAlchemyRepo):
                                        game_state=1))
         await self._session.commit()
 
+    async def cancel_game(self):
+        pass
+
     async def start_game(self, game_id: int = 1):
         await self._session.execute(update(Game).
                                     where(Game.game_id == game_id).
@@ -32,3 +35,29 @@ class GameRepo(BaseSQLAlchemyRepo):
     async def reset_game(self):
         await self._session.execute('DELETE FROM game')
         await self._session.commit()
+
+    async def get_description_start(self):
+        description_start = await self._session.execute(select(Game.description_start))
+        await self._session.commit()
+        return description_start.scalar()
+
+    async def get_description_final(self):
+        description_final = await self._session.execute(select(Game.description_final))
+        await self._session.commit()
+        return description_final.scalar()
+
+    async def update_description_start(self, game_id: int, description_text: str):
+        await self._session.execute(update(Game).
+                                    where(Game.game_id == game_id).
+                                    values(description_start=description_text))
+        await self._session.commit()
+
+    async def update_description_final(self, game_id: int, description_text: str):
+        await self._session.execute(update(Game).
+                                    where(Game.game_id == game_id).
+                                    values(description_final=description_text))
+        await self._session.commit()
+
+
+
+
