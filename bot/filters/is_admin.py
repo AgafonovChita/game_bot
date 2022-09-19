@@ -1,9 +1,7 @@
 from aiogram.filters import BaseFilter
 from aiogram import types
 
-from typing import Union, List
-from bot.config import admins
-from aiogram.methods.get_chat_member import GetChatMember
+from config_reader import config
 
 
 class IsAdmin(BaseFilter):
@@ -11,4 +9,4 @@ class IsAdmin(BaseFilter):
 
     async def __call__(self, message: types.Message) -> bool:
         user_id = message.from_user.id
-        return user_id in admins
+        return user_id in config.admin_ids

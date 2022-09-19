@@ -7,7 +7,7 @@ current_protocol.xlsx
 travel_game.db
 .idea
 .idea/
-
+.env
 # C extensions
 *.so
 
@@ -31,7 +31,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-bot/config.py
+config_reader.py
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

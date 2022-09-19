@@ -19,12 +19,9 @@ from bot.handlers.private.control_game import control_game_router
 from bot.handlers.group import game_engine_router
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 
 from bot.middlewares import Repository, Scheduler
-
-from bot.config import Config
-
+from config_reader import config
 logger = logging.getLogger(__name__)
 
 
@@ -41,12 +38,12 @@ async def main():
 
     logger.info("Starting my_chat")
 
-    bot = Bot(Config.bot_token, parse_mode="HTML")
+    bot = Bot(config.bot_token, parse_mode="HTML")
     storage = MemoryStorage()
 
     scheduler = await get_scheduler()
 
-    engine = create_async_engine(f"{Config.db_url}", future=True, echo=False)
+    engine = create_async_engine(f"{config.db_url}", future=True, echo=False)
     async with engine.begin() as conn:
         # await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
